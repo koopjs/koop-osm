@@ -1,0 +1,12 @@
+{
+  "name": "koop-osm-provider",
+  "version": "0.0.1",
+  "description": "An OSM provider for Koop",
+  "main": "index.js",
+  "keywords": [
+    "koop",
+    "osm"
+  ],
+  "author": "Chris Helm",
+  "license": "BSD-2-Clause"
+}
