@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "An OSM provider for Koop",
   "main": "index.js",
+  "dependencies":{
+    "pg": "~2.8.3",
+    "optimist": "~0.6.0"
+  },
   "keywords": [
     "koop",
     "osm"

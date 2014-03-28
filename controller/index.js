@@ -6,8 +6,8 @@ var Controller = extend({
   serviceName: 'osm',
 
   tables: {
-    points:'planet_osm_point',
-    polygons:'planet_osm_polygon',
+    points:'planet_osm_point_koop',
+    polygons:'planet_osm_polygon_koop',
     lines: 'planet_osm_line_koop',
     roads: 'planet_osm_roads_koop'
   },

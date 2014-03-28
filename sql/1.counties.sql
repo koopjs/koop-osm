@@ -1,5 +1,7 @@
 SET CLIENT_ENCODING TO UTF8;
 SET STANDARD_CONFORMING_STRINGS TO ON;
+SELECT DropGeometryColumn('','counties','geom');
+DROP TABLE "counties";
 BEGIN;
 CREATE TABLE "counties" (gid serial,
 "name" varchar(32),
