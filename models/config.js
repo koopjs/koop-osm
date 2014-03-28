@@ -1,1 +1,1 @@
-exports.osmdb = 'osm';
+exports.osmdb = 'postgres://localhost/osm';

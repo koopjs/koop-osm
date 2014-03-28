@@ -8,9 +8,7 @@ var config = require('./config');
 
 var OSM = function(){
 
-  var conString = "postgres://localhost/" + config.osmdb;
-
-  this.client = new pg.Client(conString);
+  this.client = new pg.Client(config.osmdb);
   this.client.connect(function(err) {
     if(err) {
       console.error('could not connect to postgres', err);
