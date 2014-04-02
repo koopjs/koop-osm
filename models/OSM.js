@@ -75,6 +75,16 @@ var OSM = function(){
     });
   };
 
+  this.staticCount = function(table, callback){
+    this.client.query('SELECT * from '+table, function(err, result) {
+      if(err) {
+        callback(err, null);
+      } else {
+        callback(null, result.rows);
+      }
+    });
+  };
+
   this._buildQueryString = function(table, options){
     var limit = options.limit || 1000;
     //console.log(options); 

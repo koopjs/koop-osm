@@ -76,9 +76,21 @@ var Controller = extend({
     if ( !view ){
       self._sendError(res, 'Unknown data type ' + req.params.type);
     } else {
-      OSM.count( req.params.boundaryType, view, req.query, function(err, data){
-        res.json( data );
-      });
+      if ( req.params.boundaryType == 'state' && !req.query.where ){
+        view = 'osm_point_state';
+        OSM.staticCount( view, function(err, data){
+          res.json( data );
+        });
+      } else if ( req.params.boundaryType == 'county' && !req.query.where ){
+        view = 'osm_point_county';
+        OSM.staticCount( view, function(err, data){
+          res.json( data );
+        });
+      } else {
+        OSM.count( req.params.boundaryType, view, req.query, function(err, data){
+          res.json( data );
+        });
+      }
     }
   },
 
