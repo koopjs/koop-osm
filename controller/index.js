@@ -77,12 +77,12 @@ var Controller = extend({
       self._sendError(res, 'Unknown data type ' + req.params.type);
     } else {
       if ( req.params.boundaryType == 'state' && !req.query.where ){
-        view = 'osm_point_state';
+        view = 'osm_'+req.params.type+'_state';
         OSM.staticCount( view, function(err, data){
           res.json( data );
         });
       } else if ( req.params.boundaryType == 'county' && !req.query.where ){
-        view = 'osm_point_county';
+        view = 'osm_'+req.params.type+'_county';
         OSM.staticCount( view, function(err, data){
           res.json( data );
         });
