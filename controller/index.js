@@ -6,10 +6,10 @@ var Controller = extend({
   serviceName: 'osm',
 
   tables: {
-    points:'planet_osm_point_koop',
-    polygons:'planet_osm_polygon_koop',
-    lines: 'planet_osm_line_koop',
-    roads: 'planet_osm_roads_koop'
+    points:'planet_osm_point',
+    polygons:'planet_osm_polygon',
+    lines: 'planet_osm_line',
+    roads: 'planet_osm_roads'
   },
 
   // a mapping of types to views 
@@ -103,7 +103,18 @@ var Controller = extend({
         res.json( data );
       });
     }
-  }
+  },
+
+  getFields: function(req, res){
+    var table = Controller.tables[req.params.type];
+    if ( !table ){
+      self._sendError(res, 'Unknown data type ' + req.params.type);
+    } else {
+      OSM.fields( table, req.query, function(err, data){
+        res.json( data );
+      });
+    }
+  },
 
 
 }, base);

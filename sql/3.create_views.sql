@@ -8,12 +8,12 @@ create MATERIALIZED view planet_osm_roads_koop as select planet_osm_roads.*, sta
 
 SELECT count(osm_id)::int, planet_osm_point_koop.state INTO osm_points_state FROM planet_osm_point_koop GROUP BY planet_osm_point_koop.state;
 
-SELECT count(osm_id)::int, planet_osm_point_koop.county INTO osm_points_county FROM planet_osm_point_koop GROUP BY       planet_osm_point_koop.county;
+SELECT count(osm_id)::int, planet_osm_point_koop.state, planet_osm_point_koop.county INTO osm_points_county FROM planet_osm_point_koop GROUP BY planet_osm_point_koop.county, planet_osm_point_koop.state;
 
 SELECT count(osm_id)::int, planet_osm_polygon_koop.state INTO osm_polygons_state FROM planet_osm_polygon_koop GROUP BY planet_osm_polygon_koop.state;
 
-SELECT count(osm_id)::int, planet_osm_polygon_koop.county INTO osm_polygons_county FROM planet_osm_polygon_koop GROUP BY planet_osm_polygon_koop.county;
+SELECT count(osm_id)::int, planet_osm_polygon_koop.state, planet_osm_polygon_koop.county INTO osm_polygons_county FROM planet_osm_polygon_koop GROUP BY planet_osm_polygon_koop.county, planet_osm_polygon_koop.state;
 
 SELECT count(osm_id)::int, planet_osm_line_koop.state INTO osm_lines_state FROM planet_osm_line_koop GROUP BY                   planet_osm_line_koop.state;
 
-SELECT count(osm_id)::int, planet_osm_line_koop.county INTO osm_lines_county FROM planet_osm_line_koop GROUP BY                 planet_osm_line_koop.county;
+SELECT count(osm_id)::int, planet_osm_line_koop.state, planet_osm_line_koop.county INTO osm_lines_county FROM planet_osm_line_koop GROUP BY planet_osm_line_koop.county, planet_osm_line_koop.state;

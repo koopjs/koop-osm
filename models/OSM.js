@@ -45,6 +45,17 @@ var OSM = function(){
     });
   };
 
+  this.fields = function( table, options, callback){
+    var select = 'select column_name from information_schema.columns where table_name=\'' + table + '\'';
+    this.client.query(select, function(err, result) {
+      if(err) {
+        callback(err, null);
+      } else {
+        callback(null, _.pluck(result.rows, 'column_name'));
+      }
+    });
+  };
+
   this.distinct = function(field, table, options, callback){
     var tfield = table+'.'+field;
     var select = 'SELECT DISTINCT ' + tfield + ' FROM ' + table + ' WHERE ' + tfield + ' is not null';

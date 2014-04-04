@@ -30,6 +30,11 @@ module.exports = {
     action: 'explore'
   },
 
+  'get /osm/:type/fields': {
+    controller: 'osm',
+    action: 'getFields'
+  },
+
   'get /osm/:type/:boundaryType/count': {
     controller: 'osm',
     action: 'getCounts'
