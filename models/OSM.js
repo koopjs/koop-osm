@@ -87,6 +87,7 @@ var OSM = function(){
   };
 
   this.staticCount = function(table, callback){
+    console.log(table);
     this.client.query('SELECT * from '+table, function(err, result) {
       if(err) {
         callback(err, null);

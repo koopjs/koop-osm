@@ -6,18 +6,16 @@ var Controller = extend({
   serviceName: 'osm',
 
   tables: {
-    points:'planet_osm_point',
-    polygons:'planet_osm_polygon',
-    lines: 'planet_osm_line',
-    roads: 'planet_osm_roads'
+    points:'planet_osm_point_koop',
+    polygons:'planet_osm_polygon_koop',
+    lines: 'planet_osm_line_koop'
   },
 
   // a mapping of types to views 
   views:{
     points:'planet_osm_point_koop',
     polygons:'planet_osm_polygon_koop',
-    lines: 'planet_osm_line_koop',
-    roads: 'planet_osm_roads_koop'
+    lines: 'planet_osm_line_koop'
   }, 
 
   // renders an empty map with a text input 
@@ -71,7 +69,6 @@ var Controller = extend({
   },
 
   getCounts: function(req, res){
-    console.log(req.params.boundaryType, view);
     var view = Controller.views[req.params.type];
     if ( !view ){
       self._sendError(res, 'Unknown data type ' + req.params.type);
@@ -115,6 +112,24 @@ var Controller = extend({
       });
     }
   },
+
+  getState: function(req, res){
+    var table = Controller.tables[req.params.type];
+    if ( !table ){
+      self._sendError(res, 'Unknown data type ' + req.params.type);
+    } else if ( !req.params.state ) {
+      self._sendError(res, 'Invalid state name');
+    } else {
+      if ( req.query.where ){
+        req.query.where = 'state=\''+req.params.state+'\' AND '+req.query.where;
+      } else {
+        req.query.where = 'state=\''+req.params.state+'\'';
+      }
+      OSM.getData( table, req.query, function(err, data){
+        res.json( data );
+      });
+    }
+  }
 
 
 }, base);

@@ -25,11 +25,6 @@ module.exports = {
     action: 'featureserver'
   },
 
-  'get /osm/:type/explore': {
-    controller: 'osm',
-    action: 'explore'
-  },
-
   'get /osm/:type/fields': {
     controller: 'osm',
     action: 'getFields'
@@ -43,5 +38,10 @@ module.exports = {
   'get /osm/:type/distinct/:field': {
     controller: 'osm',
     action: 'getDistinct'
+  },
+
+  'get /osm/:type/state/:state': {
+    controller: 'osm',
+    action: 'getState'
   }
 }
