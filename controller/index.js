@@ -91,6 +91,24 @@ var Controller = extend({
     }
   },
 
+  getCountsByField: function( req, res ){
+    if ( !req.params.field || !req.params.value ){
+      Controller.getCounts(req, res);
+    } else {
+      var values = [];
+      req.params.value.split(':').forEach(function(v,i){
+        values.push("'"+v+"'");
+      });
+      var clause = req.params.field +' in ('+values.join(",")+')';  
+      if ( req.query.where ){
+        req.query.where = clause + ' AND ' + req.query.where;
+      } else {
+        req.query.where = clause;
+      }
+      Controller.getCounts(req, res);
+    }
+  },
+
   getDistinct: function(req, res){
     var table = Controller.tables[req.params.type];
     if ( !table ){
@@ -128,6 +146,82 @@ var Controller = extend({
       OSM.getData( table, req.query, function(err, data){
         res.json( data );
       });
+    }
+  },
+
+  getCounty: function(req, res){
+    var table = Controller.tables[req.params.type];
+    if ( !table ){
+      self._sendError(res, 'Unknown data type ' + req.params.type);
+    } else if ( !req.params.state || !req.params.county ) {
+      self._sendError(res, 'Must provide both a state and county name');
+    } else {
+      if ( req.query.where ){
+        req.query.where = 'county=\''+req.params.county+'\' AND state=\''+req.params.state+'\' AND '+req.query.where;
+      } else {
+        req.query.where = 'county=\''+req.params.county+'\' AND state=\''+req.params.state+'\'';
+      }
+      OSM.getData( table, req.query, function(err, data){
+        res.json( data );
+      });
+    }
+  },
+
+  getAllByField: function(req, res){
+    var clause;
+    var table = Controller.tables[req.params.type];
+    if ( !table ){
+      self._sendError(res, 'Unknown data type ' + req.params.type);
+    } else if ( !req.params.field || !req.params.value ) {
+      self._sendError(res, 'Must provide both a field and a value');
+    } else {
+      if ( req.params.value.split(':').length ){
+        var values = [];
+        req.params.value.split(':').forEach(function(v,i){
+          values.push("'"+v+"'");
+        });
+        clause = req.params.field +' in ('+values.join(",")+')';
+      } else {
+        clause = req.params.field +'=\''+req.params.value+'\'';
+      }
+ 
+      if ( req.query.where ){
+        req.query.where = clause + ' AND ' + req.query.where;
+      } else {
+        req.query.where = clause;
+      }
+      OSM.getData( table, req.query, function(err, data){
+        res.json( data );
+      });
+    }
+     
+  },
+
+  getCountyByField: function(req, res){
+    if ( !req.params.state || !req.params.county ) {
+      self._sendError(res, 'Must provide both a state and county name');
+    } else {
+      var clause = 'county=\''+req.params.county+'\' AND state=\''+req.params.state+'\'';
+      if ( req.query.where ){
+        req.query.where = clause + ' AND '+req.query.where;
+      } else {
+        req.query.where = clause;
+      }
+      Controller.getAllByField(req, res);
+    }
+  },
+
+  getStateByField: function(req, res){
+    if ( !req.params.state ) {
+      self._sendError(res, 'Must provide a valid state name');
+    } else {
+      var clause = 'state=\''+req.params.state+'\'';
+      if ( req.query.where ){
+        req.query.where = clause + ' AND '+req.query.where;
+      } else {
+        req.query.where = clause;
+      }
+      Controller.getAllByField(req, res);
     }
   }
 
