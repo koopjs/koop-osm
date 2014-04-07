@@ -5,6 +5,11 @@ module.exports = {
     action: 'listTypes'
   },
 
+  'get /osm/:type.:format': {
+    controller: 'osm',
+    action: 'getData'
+  },
+
   'get /osm/:type': {
     controller: 'osm',
     action: 'getData'
@@ -44,10 +49,20 @@ module.exports = {
     controller: 'osm',
     action: 'getDistinct'
   },
+  
+  'get /osm/:type/state/:state.:format': {
+    controller: 'osm',
+    action: 'getState'
+  },
 
   'get /osm/:type/state/:state': {
     controller: 'osm',
     action: 'getState'
+  },
+
+  'get /osm/:type/state/:state/county/:county.:format': {
+    controller: 'osm',
+    action: 'getCounty'
   },
 
   'get /osm/:type/state/:state/county/:county': {
@@ -55,14 +70,29 @@ module.exports = {
     action: 'getCounty'
   },
 
+  'get /osm/:type/state/:state/county/:county/field/:field/:value.:format': {
+    controller: 'osm',
+    action: 'getCountyByField'
+  },
+
   'get /osm/:type/state/:state/county/:county/field/:field/:value': {
     controller: 'osm',
     action: 'getCountyByField'
   },
 
+  'get /osm/:type/state/:state/field/:field/:value.:format': {
+    controller: 'osm',
+    action: 'getStateByField'
+  },
+
   'get /osm/:type/state/:state/field/:field/:value': {
     controller: 'osm',
     action: 'getStateByField'
+  },
+
+  'get /osm/:type/field/:field/:value.:format': {
+    controller: 'osm',
+    action: 'getAllByField'
   },
 
   'get /osm/:type/field/:field/:value': {

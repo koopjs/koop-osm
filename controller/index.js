@@ -1,4 +1,6 @@
 var extend = require('node.extend'),
+  crypto = require('crypto'),
+  fs = require('fs'),
   base = require('../../base/controller.js');
 
 // inherit from base controller
@@ -38,9 +40,27 @@ var Controller = extend({
     if ( !table ){
       self._sendError(res, 'Unknown data type ' + req.params.type);
     } else {
-      OSM.getData( table, req.query, function(err, data){
-        res.json( data );
-      });
+      if ( req.params.format ){
+        var key = ['osm', crypto.createHash('md5').update(JSON.stringify(req.params)+JSON.stringify(req.query)).digest('hex')].join(':');
+        var fileName = [sails.config.data_dir + 'files', key, key + '.' + req.params.format].join('/');
+        if (fs.existsSync( fileName )){
+          res.sendfile( fileName );
+        } else {
+          OSM.getData( table, req.query, function(err, data){
+            Exporter.exportToFormat( req.params.format, key, data, function(err, file){
+              if (err){
+                res.send(err, 500);
+              } else {
+                res.sendfile( file );
+              }
+            });
+          });
+        }
+      } else {
+        OSM.getData( table, req.query, function(err, data){
+          res.json( data );
+        });
+      }
     } 
   },
 
@@ -143,9 +163,7 @@ var Controller = extend({
       } else {
         req.query.where = 'state=\''+req.params.state+'\'';
       }
-      OSM.getData( table, req.query, function(err, data){
-        res.json( data );
-      });
+      Controller.getData(req, res);
     }
   },
 
@@ -161,9 +179,7 @@ var Controller = extend({
       } else {
         req.query.where = 'county=\''+req.params.county+'\' AND state=\''+req.params.state+'\'';
       }
-      OSM.getData( table, req.query, function(err, data){
-        res.json( data );
-      });
+      Controller.getData(req, res);
     }
   },
 
@@ -190,9 +206,7 @@ var Controller = extend({
       } else {
         req.query.where = clause;
       }
-      OSM.getData( table, req.query, function(err, data){
-        res.json( data );
-      });
+      Controller.getData(req, res);
     }
      
   },
