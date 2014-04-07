@@ -58,7 +58,13 @@ var Controller = extend({
         }
       } else {
         OSM.getData( table, req.query, function(err, data){
-          res.json( data );
+          if ( req.query.topojson ){
+            Topojson.convert(data, function(err, topology){ 
+              res.json( topology );
+            });
+          } else {
+            res.json( data );
+          }
         });
       }
     } 
