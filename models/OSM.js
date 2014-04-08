@@ -97,7 +97,12 @@ var OSM = function(){
 
   this._buildQueryString = function(table, options){
     var limit = options.limit || 1000;
-    var query = 'SELECT *, ST_AsGeoJson(ST_Transform(way,4326)) as geometry from ';
+    var query = 'SELECT *, ST_AsGeoJson(';
+    if (table == 'planet_osm_point_koop'){
+      query += 'way) as geometry from ';
+    } else {
+      query += 'ST_Transform(way,4326)) as geometry from '
+    }
     query +=  table;
     if ( options.where ) { 
       query += ' WHERE ' + options.where;
