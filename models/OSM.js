@@ -46,12 +46,13 @@ var OSM = function(){
   };
 
   this.fields = function( table, options, callback){
-    var select = 'select column_name from information_schema.columns where table_name=\'' + table + '\'';
+    //var select = 'select column_name from information_schema.columns where table_name=\'' + table + '\'';
+    var select = 'select * from '+ table + ' limit 1';
     this.client.query(select, function(err, result) {
       if(err) {
         callback(err, null);
       } else {
-        callback(null, _.pluck(result.rows, 'column_name'));
+        callback(null, Object.keys(result.rows[0]));//_.pluck(result.rows, 'column_name'));
       }
     });
   };
@@ -59,7 +60,6 @@ var OSM = function(){
   this.distinct = function(field, table, options, callback){
     var tfield = table+'.'+field;
     var select = 'SELECT DISTINCT ' + tfield + ' FROM ' + table + ' WHERE ' + tfield + ' is not null';
-    console.log(select);
     this.client.query(select, function(err, result) {
       if(err) {
         callback(err, null);
@@ -76,7 +76,6 @@ var OSM = function(){
       select += ' WHERE ' + options.where;
     }
     select += ' GROUP BY '+tfield;
-    console.log(select)
     this.client.query(select, function(err, result) {
       if(err) {
         callback(err, null);
@@ -87,7 +86,6 @@ var OSM = function(){
   };
 
   this.staticCount = function(table, callback){
-    console.log(table);
     this.client.query('SELECT * from '+table, function(err, result) {
       if(err) {
         callback(err, null);
@@ -99,8 +97,7 @@ var OSM = function(){
 
   this._buildQueryString = function(table, options){
     var limit = options.limit || 1000;
-    //console.log(options); 
-    var query = 'SELECT *, ST_AsGeoJson(way) as geometry from ';
+    var query = 'SELECT *, ST_AsGeoJson(ST_Transform(way,4326)) as geometry from ';
     query +=  table;
     if ( options.where ) { 
       query += ' WHERE ' + options.where;
