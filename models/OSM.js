@@ -60,6 +60,9 @@ var OSM = function(){
   this.distinct = function(field, table, options, callback){
     var tfield = table+'.'+field;
     var select = 'SELECT DISTINCT ' + tfield + ' FROM ' + table + ' WHERE ' + tfield + ' is not null';
+    if ( options.where ){
+      select += " AND " + options.where;
+    }
     this.client.query(select, function(err, result) {
       if(err) {
         callback(err, null);
