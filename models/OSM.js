@@ -101,7 +101,7 @@ var OSM = function(){
     if (table == 'planet_osm_point_koop'){
       query += 'way) as geometry from ';
     } else {
-      query += 'ST_Transform(way,4326)) as geometry from '
+      query += 'ST_Transform(way,4326)) as geometry from ';
     }
     query +=  table;
     if ( options.where ) { 
