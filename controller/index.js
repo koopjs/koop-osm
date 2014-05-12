@@ -1,7 +1,6 @@
 var extend = require('node.extend'),
   crypto = require('crypto'),
-  fs = require('fs'),
-  base = require('../../base/controller.js');
+  fs = require('fs');
 
 // inherit from base controller
 var Controller = extend({
@@ -25,7 +24,7 @@ var Controller = extend({
     res.view('osm/index', { locals:{ where: req.query.where } });
   },
     
-  base_url: 'http://'+sails.config.host+':'+sails.config.port+'/osm',
+  base_url: 'http://'+config.host+':'+config.port+'/osm',
 
   listTypes: function(req, res){
     var links = {};
@@ -42,7 +41,7 @@ var Controller = extend({
     } else {
       if ( req.params.format ){
         var key = ['osm', crypto.createHash('md5').update(JSON.stringify(req.params)+JSON.stringify(req.query)).digest('hex')].join(':');
-        var fileName = [sails.config.data_dir + 'files', key, key + '.' + req.params.format].join('/');
+        var fileName = [config.data_dir + 'files', key, key + '.' + req.params.format].join('/');
         if (fs.existsSync( fileName )){
           res.sendfile( fileName );
         } else {
@@ -246,6 +245,6 @@ var Controller = extend({
   }
 
 
-}, base);
+}, BaseController);
 
 module.exports = Controller;
