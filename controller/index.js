@@ -45,7 +45,7 @@ var Controller = extend({
         if (fs.existsSync( fileName )){
           res.sendfile( fileName );
         } else {
-          OSM.getData( table, req.query, function(err, data){
+          osm.getData( table, req.query, function(err, data){
             Exporter.exportToFormat( req.params.format, key, data, function(err, file){
               if (err){
                 res.send(err, 500);
@@ -56,7 +56,7 @@ var Controller = extend({
           });
         }
       } else {
-        OSM.getData( table, req.query, function(err, data){
+        osm.getData( table, req.query, function(err, data){
           if ( req.query.topojson ){
             Topojson.convert(data, function(err, topology){ 
               res.json( topology );
@@ -77,7 +77,7 @@ var Controller = extend({
     if ( !table ){
       self._sendError(res, 'Unknown data type ' + req.params.type);
     } else {
-      OSM.getData( table, req.query, function(err, data){
+      osm.getData( table, req.query, function(err, data){
         if (err) {
           res.send( err, 500);
         } else {
@@ -100,16 +100,16 @@ var Controller = extend({
     } else {
       if ( req.params.boundaryType == 'state' && !req.query.where ){
         view = 'osm_'+req.params.type+'_state';
-        OSM.staticCount( view, function(err, data){
+        osm.staticCount( view, function(err, data){
           res.json( data );
         });
       } else if ( req.params.boundaryType == 'county' && !req.query.where ){
         view = 'osm_'+req.params.type+'_county';
-        OSM.staticCount( view, function(err, data){
+        osm.staticCount( view, function(err, data){
           res.json( data );
         });
       } else {
-        OSM.count( req.params.boundaryType, view, req.query, function(err, data){
+        osm.count( req.params.boundaryType, view, req.query, function(err, data){
           res.json( data );
         });
       }
@@ -139,7 +139,7 @@ var Controller = extend({
     if ( !table ){
       self._sendError(res, 'Unknown data type ' + req.params.type);
     } else {
-      OSM.distinct( req.params.field, table, req.query, function(err, data){
+      osm.distinct( req.params.field, table, req.query, function(err, data){
         res.json( data );
       });
     }
@@ -150,7 +150,7 @@ var Controller = extend({
     if ( !table ){
       self._sendError(res, 'Unknown data type ' + req.params.type);
     } else {
-      OSM.fields( table, req.query, function(err, data){
+      osm.fields( table, req.query, function(err, data){
         res.json( data );
       });
     }
