@@ -5,7 +5,10 @@
   "main": "index.js",
   "dependencies":{
     "pg": "~2.8.3",
-    "optimist": "~0.6.0"
+    "optimist": "~0.6.0",
+    "koop-server": "*",
+    "config": "~0.4.35",
+    "ejs": "~1.0.0"
   },
   "keywords": [
     "koop",
