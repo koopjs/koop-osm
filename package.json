@@ -1,5 +1,5 @@
 {
-  "name": "koop-osm-provider",
+  "name": "koop-osm",
   "version": "0.0.1",
   "description": "An OSM provider for Koop",
   "main": "index.js",
