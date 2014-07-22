@@ -46,7 +46,7 @@ var Controller = extend({
           res.sendfile( fileName );
         } else {
           osm.getData( table, req.query, function(err, data){
-            Exporter.exportToFormat( req.params.format, key, data, function(err, file){
+            Exporter.exportToFormat( req.params.format, key, data, {}, function(err, file){
               if (err){
                 res.send(err, 500);
               } else {
@@ -73,6 +73,29 @@ var Controller = extend({
     var callback = req.query.callback;
     delete req.query.callback;
 
+    var clause = '';
+    if ( req.params.field ){
+      var values = [];
+      req.params.value.split(':').forEach(function(v,i){
+        values.push("'"+v+"'");
+      });
+      clause = req.params.field +' in ('+values.join(",")+')';
+    }
+
+    if ( req.params.state ){
+      clause += ' AND state = \''+req.params.state + '\'';
+    }
+
+    if ( req.params.county ){
+      clause += ' AND county = \''+req.params.county +'\'';
+    }
+
+    if ( req.query.where ){
+      req.query.where = clause + ' AND ' + req.query.where;
+    } else {
+      req.query.where = clause;
+    }
+
     var table = Controller.tables[req.params.type];
     if ( !table ){
       self._sendError(res, 'Unknown data type ' + req.params.type);
@@ -81,8 +104,8 @@ var Controller = extend({
         if (err) {
           res.send( err, 500);
         } else {
-          req.query.geometry;
-          req.query.where;
+          delete req.query.geometry;
+          delete req.query.where;
           Controller._processFeatureServer( req, res, err, [data], callback);
         }
       });

@@ -98,5 +98,36 @@ module.exports = {
   'get /osm/:type/field/:field/:value': {
     controller: 'osm',
     action: 'getAllByField'
-  }
+  },
+
+  'get /osm/:type/state/:state/county/:county/field/:field/:value/FeatureServer/:layer/:method': {
+    controller: 'osm',
+    action: 'featureserver'
+  },
+
+  'get /osm/:type/state/:state/county/:county/field/:field/:value/FeatureServer/:layer': {
+    controller: 'osm',
+    action: 'featureserver'
+  },
+
+  'get /osm/:type/state/:state/county/:county/field/:field/:value/FeatureServer': {
+    controller: 'osm',
+    action: 'featureserver'
+  },
+
+  
+  'get /osm/:type/state/:state/field/:field/:value/FeatureServer/:layer/:method': {
+    controller: 'osm',
+    action: 'featureserver'
+  },
+
+  'get /osm/:type/state/:state/field/:field/:value/FeatureServer/:layer': {
+    controller: 'osm',
+    action: 'featureserver'
+  },
+
+  'get /osm/:type/state/:state/field/:field/:value/FeatureServer': {
+    controller: 'osm',
+    action: 'featureserver'
+  },
 }
