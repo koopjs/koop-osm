@@ -1,5 +1,4 @@
 var pg = require('pg'),
-  _ = require('lodash'),
   WKT = require('terraformer-wkt-parser'),
   sm = require('sphericalmercator'),
   merc = new sm( { size:256 } ),
