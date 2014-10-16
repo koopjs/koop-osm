@@ -8,6 +8,7 @@
     "optimist": "~0.6.0",
     "koop-server": "~0.1.1",
     "config": "~0.4.35",
+    "sphericalmercator": "~1.0.2",
     "ejs": "~1.0.0"
   },
   "keywords": [
