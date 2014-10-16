@@ -1,5 +1,4 @@
 var pg = require('pg'),
-  WKT = require('terraformer-wkt-parser'),
   sm = require('sphericalmercator'),
   merc = new sm( { size:256 } ),
   BaseModel = require('koop-server/lib/BaseModel.js'),
