@@ -65,7 +65,6 @@ var Controller = function( osm, BaseController ){
           }
         });
 
->>>>>>> e301edc622a985984af6580b2ade56804faa8fcb
       } else {
         osm.getData( table, req.query, function(err, data){
           if ( req.query.topojson ){
@@ -77,16 +76,10 @@ var Controller = function( osm, BaseController ){
           }
         });
       }
-    } 
-<<<<<<< HEAD
-  },
-
-  featureserver: function( req, res ){
-=======
-  };
+    }
+  }; 
 
   controller.featureserver = function( req, res ){
->>>>>>> e301edc622a985984af6580b2ade56804faa8fcb
     var callback = req.query.callback;
     delete req.query.callback;
 
@@ -113,15 +106,9 @@ var Controller = function( osm, BaseController ){
       req.query.where = clause;
     }
 
-<<<<<<< HEAD
-    var table = Controller.tables[req.params.type];
-    if ( !table ){
-      self._sendError(res, 'Unknown data type ' + req.params.type);
-=======
     var table = this.tables[req.params.type];
     if ( !table ){
       controller._sendError(res, 'Unknown data type ' + req.params.type);
->>>>>>> e301edc622a985984af6580b2ade56804faa8fcb
     } else {
       osm.getData( table, req.query, function(err, data){
         if (err) {
@@ -129,22 +116,6 @@ var Controller = function( osm, BaseController ){
         } else {
           delete req.query.geometry;
           delete req.query.where;
-<<<<<<< HEAD
-          Controller._processFeatureServer( req, res, err, [data], callback);
-        }
-      });
-    }
-  },
-
-  _sendError: function(res, err){
-    res.send(err,500);
-  },
-
-  getCounts: function(req, res){
-    var view = Controller.views[req.params.type];
-    if ( !view ){
-      self._sendError(res, 'Unknown data type ' + req.params.type);
-=======
           controller.processFeatureServer( req, res, err, [data], callback);
         }
       });
@@ -159,7 +130,6 @@ var Controller = function( osm, BaseController ){
     var view = controller.views[req.params.type];
     if ( !view ){
       controller._sendError(res, 'Unknown data type ' + req.params.type);
->>>>>>> e301edc622a985984af6580b2ade56804faa8fcb
     } else {
       if ( req.params.boundaryType == 'state' && !req.query.where ){
         view = 'osm_'+req.params.type+'_state';
@@ -177,19 +147,11 @@ var Controller = function( osm, BaseController ){
         });
       }
     }
-<<<<<<< HEAD
-  },
-
-  getCountsByField: function( req, res ){
-    if ( !req.params.field || !req.params.value ){
-      Controller.getCounts(req, res);
-=======
   };
 
   controller.getCountsByField = function( req, res ){
     if ( !req.params.field || !req.params.value ){
       controller.getCounts(req, res);
->>>>>>> e301edc622a985984af6580b2ade56804faa8fcb
     } else {
       var values = [];
       req.params.value.split(':').forEach(function(v,i){
@@ -201,16 +163,6 @@ var Controller = function( osm, BaseController ){
       } else {
         req.query.where = clause;
       }
-<<<<<<< HEAD
-      Controller.getCounts(req, res);
-    }
-  },
-
-  getDistinct: function(req, res){
-    var table = Controller.tables[req.params.type];
-    if ( !table ){
-      self._sendError(res, 'Unknown data type ' + req.params.type);
-=======
       this.getCounts(req, res);
     }
   };
@@ -219,27 +171,17 @@ var Controller = function( osm, BaseController ){
     var table = controller.tables[req.params.type];
     if ( !table ){
       controller._sendError(res, 'Unknown data type ' + req.params.type);
->>>>>>> e301edc622a985984af6580b2ade56804faa8fcb
     } else {
       osm.distinct( req.params.field, table, req.query, function(err, data){
         res.json( data );
       });
     }
-<<<<<<< HEAD
-  },
-
-  getFields: function(req, res){
-    var table = Controller.tables[req.params.type];
-    if ( !table ){
-      self._sendError(res, 'Unknown data type ' + req.params.type);
-=======
   };
 
   controller.getFields = function(req, res){
     var table = controller.tables[req.params.type];
     if ( !table ){
       controller._sendError(res, 'Unknown data type ' + req.params.type);
->>>>>>> e301edc622a985984af6580b2ade56804faa8fcb
     } else {
       osm.fields( table, req.query, function(err, data){
         res.json( data );
@@ -247,39 +189,18 @@ var Controller = function( osm, BaseController ){
     }
   },
 
-<<<<<<< HEAD
-  getState: function(req, res){
-    var table = Controller.tables[req.params.type];
-    if ( !table ){
-      self._sendError(res, 'Unknown data type ' + req.params.type);
-    } else if ( !req.params.state ) {
-      self._sendError(res, 'Invalid state name');
-=======
   controller.getState = function(req, res){
     var table = controller.tables[req.params.type];
     if ( !table ){
       controller._sendError(res, 'Unknown data type ' + req.params.type);
     } else if ( !req.params.state ) {
       controller._sendError(res, 'Invalid state name');
->>>>>>> e301edc622a985984af6580b2ade56804faa8fcb
     } else {
       if ( req.query.where ){
         req.query.where = 'state=\''+req.params.state+'\' AND '+req.query.where;
       } else {
         req.query.where = 'state=\''+req.params.state+'\'';
       }
-<<<<<<< HEAD
-      Controller.getData(req, res);
-    }
-  },
-
-  getCounty: function(req, res){
-    var table = Controller.tables[req.params.type];
-    if ( !table ){
-      self._sendError(res, 'Unknown data type ' + req.params.type);
-    } else if ( !req.params.state || !req.params.county ) {
-      self._sendError(res, 'Must provide both a state and county name');
-=======
       controller.getData(req, res);
     }
   };
@@ -290,26 +211,12 @@ var Controller = function( osm, BaseController ){
       controller._sendError(res, 'Unknown data type ' + req.params.type);
     } else if ( !req.params.state || !req.params.county ) {
       controller._sendError(res, 'Must provide both a state and county name');
->>>>>>> e301edc622a985984af6580b2ade56804faa8fcb
     } else {
       if ( req.query.where ){
         req.query.where = 'county=\''+req.params.county+'\' AND state=\''+req.params.state+'\' AND '+req.query.where;
       } else {
         req.query.where = 'county=\''+req.params.county+'\' AND state=\''+req.params.state+'\'';
       }
-<<<<<<< HEAD
-      Controller.getData(req, res);
-    }
-  },
-
-  getAllByField: function(req, res){
-    var clause;
-    var table = Controller.tables[req.params.type];
-    if ( !table ){
-      self._sendError(res, 'Unknown data type ' + req.params.type);
-    } else if ( !req.params.field || !req.params.value ) {
-      self._sendError(res, 'Must provide both a field and a value');
-=======
       controller.getData(req, res);
     }
   };
@@ -321,7 +228,6 @@ var Controller = function( osm, BaseController ){
       controller._sendError(res, 'Unknown data type ' + req.params.type);
     } else if ( !req.params.field || !req.params.value ) {
       controller._sendError(res, 'Must provide both a field and a value');
->>>>>>> e301edc622a985984af6580b2ade56804faa8fcb
     } else {
       if ( req.params.value.split(':').length ){
         var values = [];
@@ -338,16 +244,6 @@ var Controller = function( osm, BaseController ){
       } else {
         req.query.where = clause;
       }
-<<<<<<< HEAD
-      Controller.getData(req, res);
-    }
-     
-  },
-
-  getCountyByField: function(req, res){
-    if ( !req.params.state || !req.params.county ) {
-      self._sendError(res, 'Must provide both a state and county name');
-=======
       controller.getData(req, res);
     }
      
@@ -356,7 +252,6 @@ var Controller = function( osm, BaseController ){
   controller.getCountyByField = function(req, res){
     if ( !req.params.state || !req.params.county ) {
       _sendError(res, 'Must provide both a state and county name');
->>>>>>> e301edc622a985984af6580b2ade56804faa8fcb
     } else {
       var clause = 'county=\''+req.params.county+'\' AND state=\''+req.params.state+'\'';
       if ( req.query.where ){
@@ -364,15 +259,6 @@ var Controller = function( osm, BaseController ){
       } else {
         req.query.where = clause;
       }
-<<<<<<< HEAD
-      Controller.getAllByField(req, res);
-    }
-  },
-
-  getStateByField: function(req, res){
-    if ( !req.params.state ) {
-      self._sendError(res, 'Must provide a valid state name');
-=======
       controller.getAllByField(req, res);
     }
   };
@@ -380,7 +266,6 @@ var Controller = function( osm, BaseController ){
   controller.getStateByField = function(req, res){
     if ( !req.params.state ) {
       controller._sendError(res, 'Must provide a valid state name');
->>>>>>> e301edc622a985984af6580b2ade56804faa8fcb
     } else {
       var clause = 'state=\''+req.params.state+'\'';
       if ( req.query.where ){
@@ -388,20 +273,11 @@ var Controller = function( osm, BaseController ){
       } else {
         req.query.where = clause;
       }
-<<<<<<< HEAD
-      Controller.getAllByField(req, res);
-    }
-  }
-
-
-}, BaseController);
-=======
       controller.getAllByField(req, res);
     }
   };
 
   return controller;
 };
->>>>>>> e301edc622a985984af6580b2ade56804faa8fcb
 
 module.exports = Controller;
