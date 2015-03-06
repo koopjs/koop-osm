@@ -1,12 +1,13 @@
 var pg = require('pg'),
   sm = require('sphericalmercator'),
   merc = new sm( { size:256 } ),
+  BaseModel = require('koop-server/lib/BaseModel.js'),
   config = require('./config.js');
 
 function OSM( koop ){
 
   var osm = {};
-  osm.__proto__ = koop.BaseModel( koop );
+  osm.__proto__ = BaseModel( koop );
 
   osm.client = new pg.Client(config.osmdb);
   osm.client.connect(function(err) {

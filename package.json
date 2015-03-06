@@ -1,13 +1,13 @@
 {
   "name": "koop-osm",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An OSM provider for Koop",
   "main": "index.js",
   "dependencies": {
     "pg": "~2.8.3",
     "optimist": "~0.6.0",
-    "koop-server": "https://github.com/Esri/koop-server/tarball/master",
     "config": "~0.4.35",
+    "sphericalmercator": "~1.0.2",
     "ejs": "~1.0.0"
   },
   "keywords": [
