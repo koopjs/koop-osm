@@ -52,7 +52,7 @@ function OSM( koop ){
       if(err) {
         callback(err, null);
       } else {
-        callback(null, Object.keys(result.rows[0]));//_.pluck(result.rows, 'column_name'));
+        callback(null, Object.keys(result.rows[0]));
       }
     });
   };
@@ -67,7 +67,8 @@ function OSM( koop ){
       if(err) {
         callback(err, null);
       } else {
-        callback(null, _.pluck(result.rows, field));
+        var fields = result.rows.map(function(r){ return r[field]});
+        callback(null, fields);
       }
     });
   };
