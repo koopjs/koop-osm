@@ -106,7 +106,7 @@ var Controller = function( osm, BaseController ){
       req.query.where = clause;
     }
 
-    var table = this.tables[req.params.type];
+    var table = controller.tables[req.params.type];
     if ( !table ){
       controller._sendError(res, 'Unknown data type ' + req.params.type);
     } else {
@@ -163,7 +163,7 @@ var Controller = function( osm, BaseController ){
       } else {
         req.query.where = clause;
       }
-      this.getCounts(req, res);
+      controller.getCounts(req, res);
     }
   };
 
