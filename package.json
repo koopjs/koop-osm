@@ -1,6 +1,6 @@
 {
   "name": "koop-osm",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "An OSM provider for Koop",
   "main": "index.js",
   "dependencies": {
@@ -18,12 +18,8 @@
     "name": "Chris Helm"
   },
   "license": "BSD-2-Clause",
-  "readme": "koop-osm-provider \n----\n\nAn OpenStreetMap provider to [koop](https://github.com/Esri/koop)\n\nWill support a variety of things: \n\n* access to points, lines, and polygons as both geojson and Esri FeatureService (GeoService REST)\n* counts of data per boundary files via PostGIS \n* distinct values for table fields\n",
-  "readmeFilename": "README.md",
-  "_id": "koop-osm-provider@0.0.1",
-  "dist": {
-    "shasum": "671abb07105be7b48a82c7d0c3b5eda27f8190b0"
-  },
-  "_from": "https://github.com/chelm/koop-osm-provider/tarball/master",
-  "_resolved": "https://github.com/chelm/koop-osm-provider/tarball/master"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com:chelm/koop-osm.git"
+  }
 }
