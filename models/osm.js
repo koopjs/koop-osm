@@ -1,12 +1,13 @@
 var pg = require('pg'),
   sm = require('sphericalmercator'),
   merc = new sm( { size:256 } ),
+  BaseModel = require('koop-server/lib/BaseModel.js'),
   config = require('./config.js');
 
 function OSM( koop ){
 
   var osm = {};
-  osm.__proto__ = koop.BaseModel( koop );
+  osm.__proto__ = BaseModel( koop );
 
   osm.client = new pg.Client(config.osmdb);
   osm.client.connect(function(err) {
@@ -52,7 +53,7 @@ function OSM( koop ){
       if(err) {
         callback(err, null);
       } else {
-        callback(null, Object.keys(result.rows[0]));
+        callback(null, Object.keys(result.rows[0]));//_.pluck(result.rows, 'column_name'));
       }
     });
   };
@@ -67,8 +68,7 @@ function OSM( koop ){
       if(err) {
         callback(err, null);
       } else {
-        var fields = result.rows.map(function(r){ return r[field]});
-        callback(null, fields);
+        callback(null, _.pluck(result.rows, field));
       }
     });
   };
