@@ -1,6 +1,8 @@
 koop-osm-provider 
 ----
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/koopjs/koop-osm.svg)](https://greenkeeper.io/)
+
 An OpenStreetMap provider to [koop](https://github.com/Esri/koop)
 
 Will support a variety of things: 

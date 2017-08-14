@@ -4,11 +4,11 @@
   "description": "An OSM provider for Koop",
   "main": "index.js",
   "dependencies": {
-    "pg": "~2.8.3",
+    "pg": "~7.1.2",
     "optimist": "~0.6.0",
-    "config": "~0.4.35",
+    "config": "~1.26.2",
     "sphericalmercator": "~1.0.2",
-    "ejs": "~1.0.0"
+    "ejs": "~2.5.7"
   },
   "keywords": [
     "koop",
